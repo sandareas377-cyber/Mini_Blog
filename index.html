@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+  <title>Mini Blog</title>
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header>
+    <h1>Mini Blog</h1>
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button id="addPostBtn">+ New Post</button>
+  </header>
+
+ <section class="hero-post" id="heroPost"></section>
+
+  <section class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search posts..." />
+  </section>
+
+  <main id="postsContainer"></main>
+
+  <!-- Create Post Modal -->
+  <div id="postModal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal">&times;</span>
+      <h2>Create New Post</h2>
+      <input type="text" id="postTitle" placeholder="Post Title" />
+      <input type="text" id="postAuthor" placeholder="Author Name" />
+      <textarea id="postContent" placeholder="Write your post..."></textarea>
+      <label for="postImageFile" class="upload-label">Choose Image</label>
+<input type="file" id="postImageFile" accept="image/*" />
+<img id="previewImage" src="" alt="Preview" style="display:none; width:100%; margin-top:10px; border-radius:10px;">
+
+      <button id="savePostBtn">Publish</button>
+    </div>
+  </div>
+<br><br><br><br><br><br><br><br><br><br>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-about">
+        <h3>Mini Blog</h3>
+        <p>
+          A simple yet modern blog built with HTML, CSS, and JavaScript.  
+          Share your stories, ideas, and inspiration.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-social">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="https://instagram.com/samama_.ikram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 Mini Blog | All Rights Reserved</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

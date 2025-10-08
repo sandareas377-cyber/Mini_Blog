@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+  <title>Post | Mini Blog</title>
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1><a href="index.html" style="text-decoration:none;color:inherit;">Mini Blog</a></h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="single-post" id="singlePost"></main>
+
+<!-- 💬 Comment Section -->
+<section class="comments-section">
+  <h3>Comments</h3>
+  <div id="commentsContainer"></div>
+
+  <form id="commentForm">
+    <input type="text" id="commentName" placeholder="Your Name" required />
+    <textarea id="commentText" placeholder="Write a comment..." rows="3" required></textarea>
+    <button type="submit">Add Comment</button>
+  </form>
+</section>
+
+
+ <script>
+  const container = document.getElementById("singlePost");
+  const commentsContainer = document.getElementById("commentsContainer");
+  const commentForm = document.getElementById("commentForm");
+
+  const params = new URLSearchParams(window.location.search);
+  const id = parseInt(params.get("id"));
+  const posts = JSON.parse(localStorage.getItem("miniBlogPosts")) || [];
+  const commentsData = JSON.parse(localStorage.getItem("miniBlogComments")) || {};
+
+  const post = posts.find(p => p.id === id);
+
+  // 📰 Display the post
+  if (!post) {
+    container.innerHTML = "<p>Post not found.</p>";
+  } else {
+    container.innerHTML = `
+      <div class="post-detail">
+        ${post.image ? `<img src="${post.image}" alt="${post.title}">` : ""}
+        <h2>${post.title}</h2>
+        <small>By ${post.author}</small>
+        <p>${post.content}</p>
+        <a href="index.html" class="back-btn">← Back to Home</a>
+      </div>
+    `;
+  }
+
+  // 💬 Load comments for this post
+  function displayComments() {
+    const comments = commentsData[id] || [];
+    commentsContainer.innerHTML = "";
+    if (comments.length === 0) {
+      commentsContainer.innerHTML = "<p class='no-comments'>No comments yet. Be the first!</p>";
+      return;
+    }
+
+    comments.forEach((c) => {
+      const div = document.createElement("div");
+      div.className = "comment";
+      div.innerHTML = `
+        <strong>${c.name}</strong>
+        <p>${c.text}</p>
+      `;
+      commentsContainer.appendChild(div);
+    });
+  }
+
+  // ✍️ Add new comment
+  commentForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = document.getElementById("commentName").value.trim();
+    const text = document.getElementById("commentText").value.trim();
+
+    if (!name || !text) return;
+
+    if (!commentsData[id]) commentsData[id] = [];
+    commentsData[id].push({ name, text });
+
+    localStorage.setItem("miniBlogComments", JSON.stringify(commentsData));
+
+    document.getElementById("commentName").value = "";
+    document.getElementById("commentText").value = "";
+
+    displayComments();
+  });
+
+  // Init
+  displayComments();
+</script>
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-about">
+      <h3>Mini Blog</h3>
+      <p>
+        A simple yet modern blog built with HTML, CSS, and JavaScript.  
+        Share your stories, ideas, and inspiration.Please Follow me on Instagram: <a href="https://instagram.com/samama_.ikram" target="_blank" rel="noopener noreferrer">@samama_.ikram</a>
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-social">
+      <h4>Follow Us</h4>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="https://instagram.com/samama_.ikram" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 Mini Blog | All Rights Reserved</p>
+  </div>
+</footer>
+
+
+<!-- Font Awesome for icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+</body>
+</html>
